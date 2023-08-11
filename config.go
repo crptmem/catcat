@@ -77,7 +77,6 @@ func readConfig() {
 
 func getGameEntries() ([]interface{}) {
   GameEntries := viper.Get("gameentries").([]interface{})
-  fmt.Println(GameEntries)
   return GameEntries
 }
 
