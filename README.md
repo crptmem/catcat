@@ -22,19 +22,9 @@ go install
 ## 🔧 Configuration
 Run `catcat` for the first time. <br/>
 Open `$HOME/.config/catcat/config.json` in your favourite editor. <br/>
-Set `winelocation` to your Wine binary location (like `/etc/eselect/wine/bin/wine` in Gentoo Linux) <br/>
-Add games to `gameentries` like this:
-```json
-{
-  "gameentries" : [{
-      "name": "Game name",
-      "executablepath": "Game executable path",
-      "wrappercommand": "Some wrapper command like mangohud",
-      "discordpresence": true
-  }],
-  "winelocation": "your wine location"
-}
-```
+Set `winelocation` to your Wine binary location (like `/etc/eselect/wine/bin/wine` in Gentoo Linux) <br/><br/>
+You can add games using `catcat --addgame name path wrappercommand(can be blank)`
+
 <br/>
 Also, if you want to use Discord presence, use <a href="https://github.com/0e4ef622/wine-discord-ipc-bridge">this repository</a>. <br/>
 Download or compile `winediscordipcbridge.exe` and put it to `$HOME/.config/catcat/bin/`
