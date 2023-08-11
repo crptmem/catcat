@@ -1,0 +1,8 @@
+{
+    "GameEntries" : [{
+	      "Name": "ULTRAKILL",
+        "ExecutablePath": "/home/corruptmemory/Downloads/ULTRAKILL/ULTRAKILL.exe",
+        "WrapperCommand": "",
+        "DiscordPresence": true
+    }]
+}
