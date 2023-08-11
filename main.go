@@ -11,6 +11,7 @@ import (
 func main() {
   readConfig()
   var addGame = flag.Bool("addgame", false, "Add a new game (example: catcat --addgame name path wrapper)")  
+  var setWine = flag.Bool("setwine", false, "Set Wine location")  
   
   flag.Parse()
 
@@ -27,6 +28,17 @@ func main() {
       viper.Set("gameentries", GameEntries)
       viper.WriteConfig()
       fmt.Println("Success")
+      os.Exit(0)
+    }
+  } else if *setWine {
+    if flag.NArg() < 1 { 
+      flag.Usage()
+      os.Exit(1)
+    } else {
+      viper.Set("winelocation", flag.Arg(0))
+      viper.WriteConfig()
+      fmt.Println("Success")
+      os.Exit(0)
     }
   } else {
     runInterfaceList()
