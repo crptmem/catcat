@@ -35,3 +35,7 @@ Add games to `gameentries` like this:
   "winelocation": "your wine location"
 }
 ```
+<br/>
+Also, if you want to use Discord presence, use <a href="https://github.com/0e4ef622/wine-discord-ipc-bridge">this repository</a>. Download or compile `winediscordipcbridge.exe` and put it to `$HOME/.config/catcat/bin/`
+
+
