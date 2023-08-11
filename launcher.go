@@ -17,6 +17,10 @@ func execute(cmd *exec.Cmd){
 func launchGame(path string, wrapper string) error {
   wineApp := viper.GetString("winelocation")
 
+  if len(wrapper) == 0 {
+    return nil
+  }
+
   if _, err := os.Stat(path); os.IsNotExist(err) {
     return err
   }
