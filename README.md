@@ -7,4 +7,6 @@
 </p>
 
 > 🐈 A simple and customizable launcher for running games through Wine.
-<img align="center" src=https://github.com/crptmem/catcat/assets/88046785/b1f40ce6-fe23-4ead-a466-22bda52e0d43 />
+<p align="center">
+  <img align="center" src=https://github.com/crptmem/catcat/assets/88046785/b1f40ce6-fe23-4ead-a466-22bda52e0d43 />
+</p>
