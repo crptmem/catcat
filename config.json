@@ -1,8 +1,0 @@
-{
-    "GameEntries" : [{
-	"Name": "Test",
-        "ExecutablePath": "nothing",
-        "WrapperCommand": "nothing",
-        "DiscordPresence": true
-    }]
-}

@@ -39,7 +39,7 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
     if msg.String() == "enter" {
       var Item = m.list.SelectedItem().(item)
       var Entry = getGameEntry(Item.title)
-      fmt.Println(Entry["executablepath"])
+      launchGame(Entry["executablepath"].(string), Entry["wrappercommand"].(string), Entry["discordpresence"].(bool))
       return m, nil
     }
   case tea.WindowSizeMsg:
@@ -57,7 +57,7 @@ func (m model) View() string {
 }
 
 func main() {
-  readConfig("config.json") 
+  readConfig() 
   var GameEntries = getGameEntries()
   
   items := []list.Item{}
