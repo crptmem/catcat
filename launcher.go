@@ -17,10 +17,6 @@ func execute(cmd *exec.Cmd){
 func launchGame(path string, wrapper string) error {
   wineApp := viper.GetString("winelocation")
 
-  if len(wrapper) == 0 {
-    return nil
-  }
-
   if _, err := os.Stat(path); os.IsNotExist(err) {
     return err
   }
@@ -33,8 +29,14 @@ func launchGame(path string, wrapper string) error {
     go execute(bridgeCmd)
   }
 
-  cmd := exec.Command(wrapper, wineApp, path)
-  go execute(cmd)
+  
+  if len(wrapper) == 0 {
+    cmd := exec.Command(wineApp, path)
+    go execute(cmd)
+  } else {
+    cmd := exec.Command(wrapper, wineApp, path)
+    go execute(cmd)
+  }
   return nil
 }
 
