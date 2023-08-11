@@ -28,11 +28,10 @@ func getGameEntry(name string) (map[string]interface{}){
   var entries = getGameEntries()
 
   for _, entry := range entries {
-		// Type-assert the entry to a map[string]interface{}
-		entryMap := entry.(map[string]interface{})
+    entryMap := entry.(map[string]interface{})
     if entryMap["name"] == name {
       return entryMap
     }
-	}
+  }
   return nil
 }

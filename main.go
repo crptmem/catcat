@@ -11,12 +11,6 @@ import (
 
 var docStyle = lipgloss.NewStyle().Margin(1, 2)
 
-var (
-  	statusMessageStyle = lipgloss.NewStyle().
-				Foreground(lipgloss.AdaptiveColor{Light: "#04B575", Dark: "#04B575"}).
-				Render
-)
-
 type item struct {
 	title, desc string
 }
@@ -37,29 +31,25 @@ func (m model) Init() tea.Cmd {
 }
 
 func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
-	switch msg := msg.(type) {
-	case tea.KeyMsg:
-		if msg.String() == "ctrl+c" {
-			return m, tea.Quit
-		}
-
+  switch msg := msg.(type) {
+  case tea.KeyMsg:
+    if msg.String() == "ctrl+c" {
+      return m, tea.Quit
+    }
     if msg.String() == "enter" {
-      //fmt.Println(m.list.SelectedItem().(item).desc)
       var Item = m.list.SelectedItem().(item)
       var Entry = getGameEntry(Item.title)
       fmt.Println(Entry["executablepath"])
       return m, nil
-		}
-    
+    }
+  case tea.WindowSizeMsg:
+    h, v := docStyle.GetFrameSize()
+    m.list.SetSize(msg.Width-h, msg.Height-v)
+  }
 
-	case tea.WindowSizeMsg:
-		h, v := docStyle.GetFrameSize()
-		m.list.SetSize(msg.Width-h, msg.Height-v)
-	}
-
-	var cmd tea.Cmd
-	m.list, cmd = m.list.Update(msg)
-	return m, cmd
+  var cmd tea.Cmd
+  m.list, cmd = m.list.Update(msg)
+  return m, cmd
 }
 
 func (m model) View() string {
@@ -67,34 +57,31 @@ func (m model) View() string {
 }
 
 func main() {
-	readConfig("config.json") 
+  readConfig("config.json") 
   var GameEntries = getGameEntries()
   
   items := []list.Item{}
 
   for _, entry := range GameEntries {
-		// Type-assert the entry to a map[string]interface{}
-		  entryMap := entry.(map[string]interface{})
-
-		  if executablePath, ok := entryMap["executablepath"].(string); ok {
-        if name, ok := entryMap["name"].(string); ok {
-          fmt.Printf("\nName: %s, ExecutablePath: %s", name, executablePath)
-          items = append(items, item{title: name, desc: executablePath})
-        } else {
-			    fmt.Println("Name is nil or not a string")
-	  	  }
+    entryMap := entry.(map[string]interface{})
+    if executablePath, ok := entryMap["executablepath"].(string); ok {
+      if name, ok := entryMap["name"].(string); ok {
+        fmt.Printf("\nName: %s, ExecutablePath: %s", name, executablePath)
+        items = append(items, item{title: name, desc: executablePath})
+      } else {
+        fmt.Println("Name is nil or not a string")
+      }
     } else {
-			fmt.Println("ExecutablePath is nil or not a string")
-		}
-	}
+      fmt.Println("ExecutablePath is nil or not a string")
+    }
+  }
 
   m := model{list: list.New(items, list.NewDefaultDelegate(), 0, 0)}
-	m.list.Title = "catcat v0.1"
-
-	p := tea.NewProgram(m, tea.WithAltScreen())
-	if _, err := p.Run(); err != nil {
-		fmt.Println("Error running program:", err)
-		os.Exit(1)
-	}
+  m.list.Title = "catcat v0.1"
+  p := tea.NewProgram(m, tea.WithAltScreen())
+  if _, err := p.Run(); err != nil {
+    fmt.Println("Error running program:", err)
+    os.Exit(1)
+  }
 }
 
